@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="pkg2doparcialrobot.MainController">
+
+    <center>
+        <TableView fx:id="tablaRobots">
+            <columns>
+                <TableColumn fx:id="colNombre" text="Nombre"/>
+                <TableColumn fx:id="colEnergia" text="Energía"/>
+                <TableColumn fx:id="colSerie" text="Serie"/>
+                <TableColumn fx:id="colTipo" text="Tipo"/>
+                <TableColumn fx:id="colExtra" text="Dato Extra"/>
+            </columns>
+        </TableView>
+    </center>
+
+    <right>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+
+            <Label text="Nombre:"/>
+            <TextField fx:id="txtNombre"/>
+
+            <Label text="Energía:"/>
+            <TextField fx:id="txtEnergia"/>
+
+            <Label text="Serie:"/>
+            <TextField fx:id="txtSerie"/>
+
+            <Label text="Tipo:"/>
+            <ComboBox fx:id="cmbTipo"/>
+
+            <Label text="Dato Extra:"/>
+            <TextField fx:id="txtExtra"/>
+
+            <Button text="Agregar" onAction="#agregarRobot"/>
+            <Button text="Eliminar" onAction="#eliminarRobot"/>
+            <Button text="Modificar" onAction="#modificarRobot"/>
+            <Button text="Robots con baja energía" onAction="#abrirLowEnergy"/>
+        </VBox>
+    </right>
+
+</BorderPane>

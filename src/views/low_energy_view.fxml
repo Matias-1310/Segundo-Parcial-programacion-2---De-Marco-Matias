@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" 
+            fx:controller="pkg2doparcialrobot.LowEnergyController">
+
+    <center>
+        <TableView fx:id="tablaLow">
+            <columns>
+                <TableColumn fx:id="colNombre" text="Nombre"/>
+                <TableColumn fx:id="colEnergia" text="Energía"/>
+                <TableColumn fx:id="colSerie" text="Serie"/>
+                <TableColumn fx:id="colTipo" text="Tipo"/>
+            </columns>
+        </TableView>
+    </center>
+
+</BorderPane>
