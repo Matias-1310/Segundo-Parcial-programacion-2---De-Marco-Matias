@@ -28,6 +28,7 @@ public class MainController {
 
     @FXML
     public void initialize() {
+
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         colEnergia.setCellValueFactory(new PropertyValueFactory<>("energia"));
         colSerie.setCellValueFactory(new PropertyValueFactory<>("numeroSerie"));
@@ -37,6 +38,17 @@ public class MainController {
         cmbTipo.getItems().addAll(TipoRobot.DOMESTICO, TipoRobot.INDUSTRIAL);
 
         tablaRobots.getItems().setAll(repo.getRobots());
+
+        // 🔥 AL SELECCIONAR UN ROBOT, CARGA LOS DATOS EN LOS CAMPOS
+        tablaRobots.getSelectionModel().selectedItemProperty().addListener((obs, old, r) -> {
+            if (r != null) {
+                txtNombre.setText(r.getNombre());
+                txtEnergia.setText(String.valueOf(r.getEnergia()));
+                txtSerie.setText(String.valueOf(r.getNumeroSerie()));
+                cmbTipo.setValue(r.getTipo());
+                txtExtra.setText(r.getDatoExtra());
+            }
+        });
     }
 
     @FXML
@@ -47,6 +59,9 @@ public class MainController {
             int serie = Integer.parseInt(txtSerie.getText());
             int extra = Integer.parseInt(txtExtra.getText());
             TipoRobot tipo = cmbTipo.getValue();
+
+            if (tipo == null)
+                throw new RuntimeException("Seleccioná un tipo de robot.");
 
             Robot r;
             if (tipo == TipoRobot.DOMESTICO)
@@ -86,17 +101,19 @@ public class MainController {
             int extra = Integer.parseInt(txtExtra.getText());
             TipoRobot tipo = cmbTipo.getValue();
 
+            if (tipo == null)
+                throw new RuntimeException("Seleccioná un tipo.");
+
             if (energia < 0 || energia > 100)
-                throw new RuntimeException("La energía debe estar entre 0 y 100");
+                throw new EnergiaInvalidaException("La energía debe estar entre 0 y 100.");
 
             if (serie < 0)
-                throw new RuntimeException("El número de serie debe ser positivo");
+                throw new NumeroSerieInvalidoException("El número de serie debe ser positivo.");
 
             if (serie != seleccionado.getNumeroSerie()) {
-                for (Robot r : repo.getRobots()) {
+                for (Robot r : repo.getRobots())
                     if (r.getNumeroSerie() == serie)
-                        throw new RuntimeException("Número de serie duplicado");
-                }
+                        throw new NumeroSerieDuplicadoException("Número de serie duplicado.");
             }
 
             int index = repo.getRobots().indexOf(seleccionado);
